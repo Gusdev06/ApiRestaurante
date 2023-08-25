@@ -8,7 +8,11 @@ import cors from 'cors';
 import routes from './routes.js'
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://apirestaurante.onrender.com/',
+    methods: ['GET', 'POST'],
+    allowedHeaders: 'Content-Type'
+}));
 
 app.use(routes)
 
