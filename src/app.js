@@ -1,9 +1,10 @@
 import  express  from 'express'; // importanto o express 
 const app = express() // instaciando o app 
 
+import routes from './routes.js'
+
 app.use(express.json());
 
-import routes from './routes.js'
 app.use(routes)
 
 
