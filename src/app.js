@@ -9,7 +9,7 @@ import routes from './routes.js'
 
 app.use(express.json());
 app.use(cors({
-    origin: 'https://apirestaurante.onrender.com/',
+    origin: 'https://apirestaurante.onrender.com',
     methods: ['GET', 'POST'],
     allowedHeaders: 'Content-Type'
 }));
