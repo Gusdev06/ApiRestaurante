@@ -1,4 +1,15 @@
 import { openDb } from '../configDB.js';
+const key = '5e4dffaaebf0740d2964a6e6f5289c3f'
+
+export async function checkAccessKey(req, res, next) {
+    const providedKey = req.headers['x-access-key']; // Chave de acesso enviada no header
+
+    if (providedKey === key) {
+        next();
+    } else {
+        res.status(403).json({ message: 'Acesso proibido' });
+    }
+}
 
 
 
