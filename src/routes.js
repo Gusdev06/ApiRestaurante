@@ -10,10 +10,10 @@ routes.get('/', (req , res) => {
     })
 })
 
-routes.post('/cardapios', insertCardapio)
-routes.put('/cardapios', UpdateCardapio)
-routes.get('/cardapios', checkAccessKey, selectCardapios)
+routes.post('/cardapio', checkAccessKey ,insertCardapio)
+routes.put('/cardapio', checkAccessKey,  UpdateCardapio)
+routes.get('/cardapios?', selectCardapios)
 routes.get('/cardapio', selectPratos)
-routes.delete('/cardapio', deletePratos)
+routes.delete('/cardapio', checkAccessKey, deletePratos)
 
 export default routes
