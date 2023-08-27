@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { createTable, insertCardapio, UpdateCardapio, selectCardapios, selectPratos, deletePratos, checkAccessKey} from './controlers/cardapio.js'; // IMPORTANDO O CREATE TABLE
+import { insertprato, Updateprato, selectprato, selectpratos, deletePratos,} from './controlers/pratos.js';
+import { insertPorcoes, UpdatePorcoes, selectPorcoes, selectPorcaoFromId, deletePorcoes,} from './controlers/porcoes.js';
+
+import { checkAccessKey } from './key/key.js'
 
 const routes = Router();
 
@@ -10,10 +13,18 @@ routes.get('/', (req , res) => {
     })
 })
 
-routes.post('/cardapio', checkAccessKey ,insertCardapio)
-routes.put('/cardapio', checkAccessKey,  UpdateCardapio)
-routes.get('/cardapios?', selectCardapios)
-routes.get('/cardapio', selectPratos)
-routes.delete('/cardapio', checkAccessKey, deletePratos)
+// ---------- ROTA DE PRATOS 
+
+routes.post('/newprato', checkAccessKey ,insertprato) // rota priv
+routes.put('/attprato', checkAccessKey,  Updateprato) // rota priv
+routes.delete('/delprato', checkAccessKey, deletePratos) // rota priv
+routes.get('/pratoId', selectprato) 
+routes.get('/pratos', selectpratos)
+
+routes.post('/newporcao', checkAccessKey ,insertPorcoes) // rota priv
+routes.put('/attporcao', checkAccessKey,  UpdatePorcoes) // rota priv
+routes.delete('/delporcao', checkAccessKey, deletePorcoes) // rota priv
+routes.get('/porcaoId', selectPorcaoFromId) 
+routes.get('/porcoes', selectPorcoes)
 
 export default routes

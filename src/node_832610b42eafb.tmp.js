@@ -8,6 +8,7 @@ import 'dotenv/config'
 const app = express() // instaciando o app 
 const PORT = process.env.PORT || 3001
 
+console.log(`${process.env.HELLO}`)
 
 
 app.use(express.json());
