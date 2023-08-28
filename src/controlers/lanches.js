@@ -7,8 +7,8 @@ import { openDb } from '../configDB.js';
 export async function insertLanches(req, res) { 
     let lanches = req.body
     openDb().then(db =>{  
-        db.run('INSERT INTO lanches (id , item , descricao, preco, img) VALUES (?, ?, ?, ?, ?)', 
-        [lanches.id, lanches.item, lanches.descricao, lanches.preco, lanches.img])  
+        db.run('INSERT INTO lanches (id , item , descricao, preco, img, sem) VALUES (?, ?, ?, ?, ?, ?)', 
+        [lanches.id, lanches.item, lanches.descricao, lanches.preco, lanches.img, lanches.sem])  
     });
 
     res.json({
