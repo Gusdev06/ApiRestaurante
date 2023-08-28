@@ -7,8 +7,8 @@ import { openDb } from '../configDB.js';
 export async function insertPorcoes(req, res) { 
     let porcoes = req.body
     openDb().then(db =>{  
-        db.run('INSERT INTO porcoes (item, descricao, preco, img) VALUES (?, ?, ?, ?)', 
-        [porcoes.item, porcoes.descricao, porcoes.preco])  
+        db.run('INSERT INTO porcoes (id , item , descricao, preco, img) VALUES (?, ?, ?, ?, ?)'
+        [porcoes.id, porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img])  
     });
 
     res.json({
@@ -21,8 +21,8 @@ export async function insertPorcoes(req, res) {
 export async function UpdatePorcoes(req, res) {  
     let porcoes = req.body
     openDb().then(db =>{  
-        db.run('UPDATE Porcoes SET item=?, descricao=?, preco=? img=? WHERE id=?', 
-        [porcoes.item, porcoes.descricao, porcoes.preco, pratos.img, porcoes.id]) 
+        db.run('UPDATE porcoes SET item=?, descricao=?, preco=? img=? WHERE id=?', 
+        [porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img, porcoes.id]) 
     });
 
     res.json({
@@ -35,7 +35,7 @@ export async function UpdatePorcoes(req, res) {
 export async function selectPorcoes(req, res) {  
     let porcoes = req.body
     openDb().then(db =>{  
-    db.all('SELECT * FROM Porcoes', )
+    db.all('SELECT * FROM porcoes', )
         .then(porcoes => res.json(porcoes))
     });
 
