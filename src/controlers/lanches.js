@@ -22,8 +22,9 @@ export async function insertLanches(req, res) {
 export async function UpdateLanches(req, res) {  
     let lanches = req.body
     openDb().then(db =>{  
-        db.run('UPDATE lanches SET item=?, descricao=?, preco=?, img=?,  id=?', 
-        [lanches.item, lanches.descricao, lanches.preco, lanches.img, lanches.id]) 
+        db.run(
+            'UPDATE lanches SET item=?, descricao=?, preco=?, img=? , sem=? WHERE id=?', 
+            [lanches.item, lanches.descricao, lanches.preco, lanches.img, lanches.sem , lanches.id])
     });
 
     res.json({
@@ -32,6 +33,7 @@ export async function UpdateLanches(req, res) {
 }
 
 // --------- BUSCAR TODOS ITEM -------------
+
 
 export async function selectLanches(req, res) {  
     let lanches = req.body
@@ -46,9 +48,9 @@ export async function selectLanches(req, res) {
 // --------- BUSCAR ITEM POR ID -------------
 
 export async function selectLanchesFromId(req, res) {  
-    let id = req.body.id;
+    let sem = req.body.sem;
     openDb().then(db =>{  
-        db.get('SELECT * FROM lanches WHERE id=? ',[id] )
+        db.all('SELECT * FROM lanches WHERE sem=? ',[sem] )
         .then(lanches =>res.json(lanches));
     });
   }

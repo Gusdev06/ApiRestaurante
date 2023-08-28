@@ -4,11 +4,12 @@ import { openDb } from '../configDB.js';
 
 // --------- INSERIR ITEM -------------
 
-export async function insertPorcoes(req, res) { 
+export async function insertPorcao(req, res) { 
     let porcoes = req.body
     openDb().then(db =>{  
-        db.run('INSERT INTO porcoes (id , item , descricao, preco, img) VALUES (?, ?, ?, ?, ?)'
-        [porcoes.id, porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img])  
+        db.run('INSERT INTO porcoes (id , item , descricao, preco, img, sem) VALUES (?, ?, ?, ?, ?, ?)', 
+        [porcoes.id, porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img, porcoes.sem])  
+        console.log();
     });
 
     res.json({
@@ -18,11 +19,12 @@ export async function insertPorcoes(req, res) {
 
 // --------- ATUALIZAR ITEM -------------
 
-export async function UpdatePorcoes(req, res) {  
+export async function updatePorcao(req, res) {  
     let porcoes = req.body
     openDb().then(db =>{  
-        db.run('UPDATE porcoes SET item=?, descricao=?, preco=? img=? WHERE id=?', 
-        [porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img, porcoes.id]) 
+        db.run(
+            'UPDATE porcoes SET item=?, descricao=?, preco=?, img=? , sem=? WHERE id=?', 
+            [porcoes.item, porcoes.descricao, porcoes.preco, porcoes.img, porcoes.sem , porcoes.id])
     });
 
     res.json({
@@ -31,6 +33,7 @@ export async function UpdatePorcoes(req, res) {
 }
 
 // --------- BUSCAR TODOS ITEM -------------
+
 
 export async function selectPorcoes(req, res) {  
     let porcoes = req.body
@@ -44,15 +47,15 @@ export async function selectPorcoes(req, res) {
 
 // --------- BUSCAR ITEM POR ID -------------
 
-export async function selectPorcaoFromId(req, res) {  
-    let id = req.body.id;
+export async function selectPorcoesFromSem(req, res) {  
+    let sem = req.body.sem;
     openDb().then(db =>{  
-        db.get('SELECT * FROM porcoes WHERE id=?',[id] )
+        db.all('SELECT * FROM porcoes WHERE sem=? ',[sem] )
         .then(porcoes =>res.json(porcoes));
     });
   }
 
-  export async function deletePorcoes(req, res) {
+  export async function deletePorcao(req, res) {
     let id = req.body.id;
     openDb().then(db =>{  
     db.get('DELETE  FROM porcoes WHERE id=?',[id] )

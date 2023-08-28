@@ -15,11 +15,12 @@ export async function createTable() { //Aqui, uma função assíncrona chamada c
 
 // --------- INSERIR ITEM -------------
 
-export async function insertprato(req, res) {  //Isso exporta a função insertprato como uma função assíncrona. Isso significa que a função pode conter operações assíncronas e retornar uma promessa.
+export async function insertPrato(req, res) { 
     let pratos = req.body
-    openDb().then(db =>{  //Aqui, a função openDb é chamada para abrir a conexão com o banco de dados. A função then é usada para lidar com a promessa retornada pela função openDb assim que a conexão for estabelecida com sucesso.
-        db.run('INSERT INTO pratos (id , item , descricao, preco, img, sem) VALUES (?, ?, ?, ?, ?, ?)', //Dentro do bloco then, a função run é chamada no objeto db, que representa a conexão com o banco de dados. Isso indica que você está executando uma operação SQL na tabela "prato". A consulta 
-         [pratos.id, pratos.item, pratos.descricao, pratos.preco, pratos.img])   // insere um novo registro na tabela "prato" com três colunas: "semana", "prato" e "price". Os valores são inseridos na consulta usando a notação ?, que é substituída pelos valores reais durante a execução. Os valores reais são fornecidos como um array [prato.semana, prato.prato, prato.price].
+    openDb().then(db =>{  
+        db.run('INSERT INTO pratos (id , item , descricao, preco, img, sem) VALUES (?, ?, ?, ?, ?, ?)', 
+        [pratos.id, pratos.item, pratos.descricao, pratos.preco, pratos.img, pratos.sem])  
+        console.log();
     });
 
     res.json({
@@ -29,11 +30,12 @@ export async function insertprato(req, res) {  //Isso exporta a função insertp
 
 // --------- ATUALIZAR ITEM -------------
 
-export async function Updateprato(req, res) {  
+export async function updatePrato(req, res) {  
     let pratos = req.body
     openDb().then(db =>{  
-        db.run('UPDATE pratos SET item=?, descricao=?, preco=? , img=? WHERE id=?', 
-        [pratos.id, pratos.item, pratos.descricao, pratos.preco,  pratos.img, pratos.id]) 
+        db.run(
+            'UPDATE pratos SET item=?, descricao=?, preco=?, img=? , sem=? WHERE id=?', 
+            [pratos.item, pratos.descricao, pratos.preco, pratos.img, pratos.sem , pratos.id])
     });
 
     res.json({
@@ -43,7 +45,8 @@ export async function Updateprato(req, res) {
 
 // --------- BUSCAR TODOS ITEM -------------
 
-export async function selectpratos(req, res) {  
+
+export async function selectPratos(req, res) {  
     let pratos = req.body
     openDb().then(db =>{  
     db.all('SELECT * FROM pratos', )
@@ -55,15 +58,15 @@ export async function selectpratos(req, res) {
 
 // --------- BUSCAR ITEM POR ID -------------
 
-export async function selectprato(req, res) {  
-    let id = req.body.id;
+export async function selectPratosFromSem(req, res) {  
+    let sem = req.body.sem;
     openDb().then(db =>{  
-        db.all('SELECT * FROM pratos WHERE id=?',[id] )
+        db.all('SELECT * FROM pratos WHERE sem=? ',[sem] )
         .then(pratos =>res.json(pratos));
     });
   }
 
-  export async function deletePratos(req, res) {
+  export async function deletePrato(req, res) {
     let id = req.body.id;
     openDb().then(db =>{  
     db.get('DELETE  FROM pratos WHERE id=?',[id] )
