@@ -17,6 +17,8 @@ app.use(cors({
 
 app.use(routes) 
 
+console.log('Oi diegue :D')
+
 
 app.listen(PORT, () =>console.log(`Api initialized or port ${PORT}`)) // definindo a porta 
 
