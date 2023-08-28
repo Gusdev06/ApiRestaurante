@@ -9,6 +9,7 @@ export async function insertLanches(req, res) {
     openDb().then(db =>{  
         db.run('INSERT INTO lanches (id , item , descricao, preco, img, sem) VALUES (?, ?, ?, ?, ?, ?)', 
         [lanches.id, lanches.item, lanches.descricao, lanches.preco, lanches.img, lanches.sem])  
+        console.log();
     });
 
     res.json({
