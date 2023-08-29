@@ -22,6 +22,7 @@ export async function insertPrato(req, res) {
         [pratos.id, pratos.item, pratos.descricao, pratos.preco, pratos.img, pratos.sem])  
         console.log();
     });
+    console.log('erro corrigido')
 
     res.json({
         "statusCode": 200,
