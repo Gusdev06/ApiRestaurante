@@ -7,6 +7,7 @@ import { insertHamburguer, UpdateHamburguer, selectHamburguers, selectHamburguer
 import { insertBolo, UpdateBolo, selectBolos, selectbolosFromSem, deleteBolo,} from './controlers/bolos.js';
 import { insertBeirute, UpdateBeirute, selectBeirutes, selectBeirutesFromSem, deleteBeirute,} from './controlers/beirutes.js';
 import { insertBebida, UpdateBebibida, selectBebidas, selectBebidaFromSem, deleteBebida,} from './controlers/bebida.js';
+import { insertUser, selectUsers, login, RotaPriv, checkToken} from './controlers/usuarios.js';
 
 import { checkAccessKey } from './key/key.js'
 
@@ -18,6 +19,13 @@ routes.get('/', (req , res) => {
         "msg": "Api Rodando"
     })
 })
+
+// Rota de usuarios
+
+routes.post('/novousuario', insertUser)
+routes.post('/auth/login', login)
+routes.get('/users', selectUsers)
+routes.get('/users/:id', checkToken , RotaPriv)
 
 // ---------- ROTA DE BEBIDAS
 
